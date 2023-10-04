@@ -1,24 +1,32 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
-
-# Node dependencies
-node_modules
-
 # Logs
-logs
 *.log
+# Dependency directories
+node_modules/
+node-v16.15.1-win-x64/
+dist
+# Cache file creation bug
+.yarn/cache/*
+.yarn/sdks/eslint/*
+.yarn/sdks/prettier/*
+.yarn/install-state.gz
+.yarn/build-state.url
+.yarn/releases.gz
 
-# Misc
-.DS_Store
-.fleet
-.idea
+### yarn ###
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
 
-# Local env files
-.env
-.env.*
-!.env.example
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+!.yarn/cache
+
+# Config file (credentials)
+options.ts
+package-lock.json
+#.env
+
+# Other
+doc.json

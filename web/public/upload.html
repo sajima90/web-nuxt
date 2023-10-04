@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Fichier</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #drop-area {
+            border: 2px dashed #00f;
+            border-radius: 20px;
+            width: 300px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+
+        #file-list {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .highlight {
+            border-color: #0af;
+        }
+
+        .success-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+        }
+
+        #upload-button {
+            background-color: #00f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #upload-button:hover {
+            background-color: #0af;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="drop-area">
+        Glissez et déposez des fichiers ici
+    </div>
+    <div id="file-list">
+        <h2>Fichiers en attente d'envoi :</h2>
+        <ul></ul>
+    </div>
+    <button id="upload-button">Envoyer les fichiers</button>
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const fileList = document.querySelector('#file-list ul');
+        const uploadButton = document.getElementById('upload-button');
+        const filesToUpload = [];
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropArea.classList.add('highlight');
+        }
+
+        function unhighlight(e) {
+            dropArea.classList.remove('highlight');
+        }
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        uploadButton.addEventListener('click', () => {
+            for (const file of filesToUpload) {
+                uploadFile(file);
+            }
+        });
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            for (const file of files) {
+                if (!filesToUpload.includes(file)) {
+                    filesToUpload.push(file);
+                    const listItem = document.createElement('li');
+                    listItem.textContent = file.name;
+                    fileList.appendChild(listItem);
+                }
+            }
+        }
+
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                    const listItem = fileList.querySelector(`li:contains('${file.name}')`);
+                    if (listItem) {
+                        listItem.remove();
+                        const index = filesToUpload.indexOf(file);
+                        if (index > -1) {
+                            filesToUpload.splice(index, 1);
+                        }
+                    }
+                    showUploadSuccessMessage(file.name); // Affiche le message de succès
+                })
+                .catch(error => {
+                    console.error('Erreur lors de l\'envoi du fichier :', error);
+                });
+        }
+
+        function showUploadSuccessMessage(fileName) {
+            const messageContainer = document.createElement('div');
+            messageContainer.textContent = `Le fichier ${fileName} a été envoyé avec succès.`;
+            messageContainer.classList.add('success-message');
+            document.body.appendChild(messageContainer);
+
+            setTimeout(() => {
+                messageContainer.remove();
+            }, 3000); // Supprime le message après 3 secondes
+        }
+    </script>
+</body>
+
+</html>

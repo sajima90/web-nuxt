@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Earth</title>
+    <link rel="stylesheet" href="src/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body class="page-wrapper light-mode">
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <header>
+        <div >
+            <a class="logo"  href="#home">
+                <img src="src/icon.png" alt="Logo">
+                <h1>Red Earth</h1>
+            </a>
+
+        </div>
+        <nav class="mobile-nav">
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <ul class="menu">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="./download">Launcher</a></li>
+                <li><a href="./mods">Mods</a></li>
+                <li><a href="#get-started">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <section id="home">
+        <div class="content">
+            <h2>Bienvenue dans le monde de l'apocalypse Minecraft</h2>
+            <p>Explorez un monde post-apocalyptique rempli de défis et de découvertes. <br>Rejoignez notre serveur
+                Minecraft
+                dès aujourd'hui et commencez votre aventure.</p>
+            <a href="#download" class="cta-button">Commencer maintenant</a>
+        </div>
+    </section>
+
+    <section id="download" class="dark-mode-section">
+        <div class="content">
+            <h2>Téléchargement du Launcher</h2>
+            <div class="download-wrapper">
+                <a href="./share/Red-Earth-mac-x64-0.9.6.dmg" target="_blank" class="download-link">
+                    <i class="fab fa-apple fa-3x"></i>
+                    <span>Mac OS</span>
+                </a>
+                <a href="./share/Red-Earth-win-x64-0.9.6.exe" target="_blank" class="download-link">
+                    <i class="fab fa-windows fa-3x"></i>
+                    <span>Windows</span>
+                </a>
+                <a href="./share/Red-Earth-linux-x86_64-0.9.6.AppImage" target="_blank" class="download-link">
+                    <i class="fab fa-linux fa-3x"></i>
+                    <span>Linux</span>
+                </a>
+                <a href="./download" class="download-link">
+                    <i class="fas fa-download fa-3x"></i>
+                    <span>Release</span>
+                </a>
+                <!-- FILE_LIST -->
+            </div>
+        </div>
+    </section>
+
+    <section id="get-started">
+        <div class="content">
+            <h2>Commencez votre aventure dès maintenant</h2>
+            <p>Rejoignez notre serveur Minecraft et plongez dans un monde apocalyptique plein de défis et de
+                possibilités. Ne manquez pas cette expérience unique.</p>
+            <a href="#" class="cta-button">Rejoignez-nous</a>
+            <p>Vous n'avez pas encore de compte ? Inscrivez-vous <a href="#signup">ici</a>.</p>
+        </div>
+    </section>
+
+
+
+
+    <footer>
+        <p>
+            <!-- &copy;  -->
+            2023 Red Earth MC - Saji</p>
+        <div class="social-icons">
+            <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="toggle-switch">
+            <input type="checkbox" id="toggle" />
+            <label for="toggle"></label>
+        </div>
+    </footer>
+
+
+    <script src="src/script.js"></script>
+</body>
+
+</html>

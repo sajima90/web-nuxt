@@ -1,18 +1,37 @@
 {
-  "name": "nuxt-app",
-  "private": true,
-  "type": "module",
+  "name": "redearth",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec npm start"
   },
-  "devDependencies": {
-    "@nuxt/devtools": "latest",
-    "nuxt": "^3.7.4",
-    "vue": "^3.3.4",
-    "vue-router": "^4.2.5"
+  "engines": {
+    "start": "node .",
+    "node": "16.x"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/core": "^5.0.0",
+    "body-parser": "^1.20.2",
+    "chalk": "^4.1.2",
+    "child_process": "^1.0.2",
+    "dayjs": "^1.10.7",
+    "discord.js": "^13.16.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "glob": "^7.2.0",
+    "https": "^1.0.0",
+    "mongoose": "^6.6.3",
+    "multer": "^1.4.5-lts.1",
+    "node-keepalive": "^0.0.1",
+    "nodemon": "^2.0.20",
+    "ping": "^0.4.2",
+    "pm2": "^5.2.0"
   }
 }

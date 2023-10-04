@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mod Explorer - Mods</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("src/dark.png") no-repeat fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .mod-list {
+            background-color: rgba(93, 98, 113, 0.49);
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 100%;
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #05121d;
+            color: #ffffff;
+        }
+
+        th {
+            background-color: #9beba562;
+        }
+
+        #search-input {
+            padding-bottom: 10px;
+            padding-top: 10px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            /* width: 100%; */
+            border: 1px solid #05121d;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            outline: none;
+        }
+
+        #search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mod-list">
+        <input type="text" id="search-input" placeholder="Rechercher un mod...">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom du Mod</th>
+                    <th>Taille</th>
+                    <th>SHA-1</th>
+                </tr>
+            </thead>
+            <tbody id="mods"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const modsTable = document.getElementById('mods');
+        let modCounter = 0;
+
+        fetch('/modsfile')
+            .then(response => response.json())
+            .then(mods => {
+                mods.forEach(mod => {
+                    modCounter++;
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${modCounter}</td>
+                        <td>${mod.path}</td>
+                        <td>${(mod.size / (1024 * 1024)).toFixed(4)} Mo</td>
+                        <td>${mod.sha1}</td>
+                    `;
+                    modsTable.appendChild(tr);
+                });
+            });
+
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const rows = modsTable.getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const modName = row.getElementsByTagName('td')[1].textContent.toLowerCase();
+                if (modName.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
